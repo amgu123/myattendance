@@ -1,0 +1,9 @@
+@echo off
+echo Starting Kafka environment...
+docker-compose up -d
+
+echo Building the application...
+mvn clean install
+
+echo Running the application...
+mvn spring-boot:run

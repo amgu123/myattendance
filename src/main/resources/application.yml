@@ -1,0 +1,42 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: async-kafka-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "example.asyncapi.*"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  
+  datasource:
+    url: jdbc:mysql://srv1275.hstgr.io:3306/u370330862_taskroom
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: u370330862_taskroom
+    password: 2Y/#NDiO~h
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 300000      # 5 minutes
+      connection-timeout: 20000  # 20 seconds
+      max-lifetime: 300000      # Reduced from 600000 to 300000 (5 minutes)
+  
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none  # Set to 'update', 'create', or 'validate' as needed
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+#  
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2-console
+
+server:
+  port: 8080
